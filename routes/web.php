@@ -18,15 +18,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
-Route::get('/login/instructor', 'Auth\LoginController@showInstructorLoginForm');
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
-Route::get('/register/instructor', 'Auth\RegisterController@showInstructorRegisterForm');
-
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
-Route::post('/login/instructor', 'Auth\LoginController@InstructorLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+
+Route::get('/login/instructor', 'Auth\LoginController@showInstructorLoginForm');
+Route::get('/register/instructor', 'Auth\RegisterController@showInstructorRegisterForm');
+Route::post('/login/instructor', 'Auth\LoginController@InstructorLogin');
 Route::post('/register/instructor', 'Auth\RegisterController@createInstructor');
 
-Route::view('/home', 'home')->middleware('auth');
-Route::view('/admin', 'admin/home');
-Route::view('/instructor', 'instructor/home');
+Route::group(['guard' => 'web'], function () {
+    Route::view('/home', 'home');
+});
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::view('/admin', 'admin/home'); 
+});
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::view('/instructor', 'instructor/home'); 
+});

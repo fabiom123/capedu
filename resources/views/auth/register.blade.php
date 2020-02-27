@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 <div class="d-flex align-items-center" style="min-height: 100vh">
-    <div class="col-sm-8 col-md-6 col-lg-4 mx-auto" style="min-width: 300px;">
+    <div class="col-sm-12 col-md-8 col-lg-6 mx-auto" style="min-width: 300px;">
         <div class="card navbar-shadow">
             <div class="card-header text-center">
                 <h4 class="card-title">{{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }}</h4>
@@ -18,67 +18,78 @@
                 <div class="page-separator">
                     <div class="page-separator__text">or</div>
                 </div>
-
+                
                 @isset($url)
-                <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
+                <form method="POST" class="row" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
                 @else
-                <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                <form method="POST" class="row" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                 @endisset
                 @csrf
-                    <div class="form-group">
-                        <label class="form-label" for="name">Name:</label>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="name">Nombres:</label>
                         <div class="input-group input-group-merge">
-                            <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Your first and last name">
+                            <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu nombre">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <span class="far fa-user"></span>
+                                    <span class="fas fa-user"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email address:</label>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="name">Apellidos:</label>
                         <div class="input-group input-group-merge">
-                            <input id="email" type="email" required="" class="form-control form-control-prepended" placeholder="Your email address">
+                            <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu apellido">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <span class="far fa-envelope"></span>
+                                    <span class="fas fa-user-plus"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password:</label>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <label class="form-label" for="email">Correo Electrónico:</label>
                         <div class="input-group input-group-merge">
-                            <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Choose a password">
+                            <input id="email" type="email" required="" class="form-control form-control-prepen  ded" placeholder="Ingresa tu correo electrónico">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <span class="far fa-key"></span>
+                                    <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password2">Password:</label>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="password">Contraseña:</label>
                         <div class="input-group input-group-merge">
-                            <input id="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirm password">
+                            <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Ingresa Contraseña">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <span class="far fa-key"></span>
+                                    <span class="fas fa-key"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
-                    <div class="form-group text-center mb-0">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="password2">Repetir contraseña:</label>
+                        <div class="input-group input-group-merge">
+                            <input id="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirma tu contraseña">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Registrarse</button>
+                    <!--<div class="form-group text-center mb-0">
                         <div class="custom-control custom-checkbox">
                             <input id="terms" type="checkbox" class="custom-control-input" checked required="">
-                            <label for="terms" class="custom-control-label text-black-70">I agree to the <a href="#" class="text-black-70" style="text-decoration: underline;">Terms of Use</a></label>
+                            <label for="terms" class="custom-control-label text-black-70">Estas de acuerdo con los <a href="#" class="text-black-70" style="text-decoration: underline;">Términos de Uso</a></label>
                         </div>
-                    </div>
+                    </div>-->
                 </form>
             </div>
-            <div class="card-footer text-center text-black-50">Already signed up? <a href="guest-login.html">Login</a></div>
+            <div class="card-footer text-center text-black-50">¿Ya tienes cuenta? <a href="/login">Iniciar sesión</a></div>
         </div>
     </div>
 </div>
