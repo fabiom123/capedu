@@ -1,52 +1,16 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Oswald:400,500,700|Roboto:400,500');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-.card-header {
-    padding: .75rem 1.25rem;
-    margin-bottom: 0;
-    color: inherit;
-    background-color: #fff;
-    border-bottom: 1px solid #f0f1f2;
-}
-.page-separator {
-    position: relative;
-    color: #b8bdc2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 0;
-    margin: 1rem 0;
-} 
-.page-separator:before {
-    content: "";
-    height: 1px;
-    background-color: #f0f1f2;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    position: absolute;
-    z-index: -1;
-}
-.page-separator__text {
-    display: inline-flex;
-    padding: .25rem 1rem;
-    font-size: .75rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: rgba(56,59,61,.5);
-    line-height: .9375rem;
-    font-weight: 700;
-    background-color: #fff;
-    max-width: 90%;
-}    
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+//Material icons
+@import 'material-icons/iconfont/material-icons.scss';
+// Custon CSS
+@import 'custon';
+// Variables
+@import 'variables';
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
 

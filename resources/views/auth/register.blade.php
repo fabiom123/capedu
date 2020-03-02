@@ -28,7 +28,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label class="form-label" for="name">Nombres:</label>
                         <div class="input-group input-group-merge">
-                            <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu nombre">
+                            <input id="name" name="name" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu nombre">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -36,10 +36,11 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label class="form-label" for="name">Apellidos:</label>
                         <div class="input-group input-group-merge">
-                            <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu apellido">
+                            <input id="lastname" name="lastname" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu apellido">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-user-plus"></span>
@@ -47,10 +48,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label class="form-label" for="email">Correo Electrónico:</label>
                         <div class="input-group input-group-merge">
-                            <input id="email" type="email" required="" class="form-control form-control-prepen  ded" placeholder="Ingresa tu correo electrónico">
+                            <input id="email" name="email" type="email" required="" class="form-control form-control-prepended" placeholder="Ingresa tu correo electrónico">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -59,9 +61,20 @@
                         </div>
                     </div>
                     <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="email">Documento de Identidad:</label>
+                        <div class="input-group input-group-merge">
+                            <input id="dni" name="dni" type="text" required="" class="form-control form-control-prepended" placeholder="Ingresa tu DNI">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-address-card"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label class="form-label" for="password">Contraseña:</label>
                         <div class="input-group input-group-merge">
-                            <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Ingresa Contraseña">
+                            <input id="password" name="password" type="password" required="" class="form-control form-control-prepended" placeholder="Ingresa Contraseña">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-key"></span>
@@ -72,7 +85,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-6">
                         <label class="form-label" for="password2">Repetir contraseña:</label>
                         <div class="input-group input-group-merge">
-                            <input id="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirma tu contraseña">
+                            <input id="password2" name="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirma tu contraseña">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-key"></span>

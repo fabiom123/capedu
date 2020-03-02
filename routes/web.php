@@ -25,16 +25,17 @@ Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::get('/login/instructor', 'Auth\LoginController@showInstructorLoginForm');
 Route::get('/register/instructor', 'Auth\RegisterController@showInstructorRegisterForm');
 Route::post('/login/instructor', 'Auth\LoginController@InstructorLogin');
-Route::post('/register/instructor', 'Auth\RegisterController@createInstructor');
+Route::post('/register/instructor', 'Auth\RegisterController@registerInstructor');
 
 Route::group(['guard' => 'web'], function () {
-    Route::view('/home', 'home');
+    Route::get('/resumen','Front\FrontController@index');
+    Route::get('/curso','Front\FrontController@course');
 });
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::view('/admin', 'admin/home'); 
+Route::group([ 'middleware' => 'instructor' ], function () {
+    Route::view('/instructor', 'instructor/home');
 });
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::view('/instructor', 'instructor/home'); 
+Route::group([ 'middleware' => 'admin' ], function () {
+    Route::view('/admin', 'admin/home');
 });
