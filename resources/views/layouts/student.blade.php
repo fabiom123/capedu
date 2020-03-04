@@ -11,13 +11,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="{{ asset('js/all.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+    
 </head>
 <body class="fixed-layout">
     
@@ -43,6 +45,119 @@
         <!-- // END Header -->
     </div>
     <!-- // END Header Layout -->
+    
+
+    <div class="mdk-drawer js-mdk-drawer" id="default-drawer" data-opened>
+        <div class="mdk-drawer__content ">
+            <div class="sidebar sidebar-left sidebar-dark bg-dark o-hidden" data-perfect-scrollbar>
+                <div class="sidebar-p-y">
+                    <!-- Account menu -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <a href="fixed-student-take-course.html" class="mr-3">
+                                    <img src="assets/images/vuejs.png" width="100" alt="" class="rounded">
+                                </a>
+                                <div class="flex">
+                                    <h4 class="card-title mb-0"><a href="fixed-student-take-course.html">VueJs</a></h4>
+                                    <span class="badge badge-primary">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-fit">
+                            <li class="list-group-item">
+                                <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                    <strong>Basics of Vue.js</strong>
+                                    <i class="material-icons text-muted ml-auto" style="font-size: inherit;">check</i>
+                                </a>
+                                <div id="page-nav" class="col-lg-auto page-nav">
+                                    <div data-perfect-scrollbar>
+                                        <div class="page-section pt-lg-32pt">
+                                            <ul class="nav page-nav__menu">
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-subscription.html" class="nav-link">Subscription</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-upgrade.html" class="nav-link">Upgrade Account</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-payment-information.html" class="nav-link">Payment Information</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-billing.html" class="nav-link">Payment History</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-invoice.html" class="nav-link active">Invoice</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                    <strong>Basics of Vue.js</strong>
+                                    <i class="material-icons text-muted ml-auto" style="font-size: inherit;">check</i>
+                                </a>
+                                <div id="page-nav" class="col-lg-auto page-nav">
+                                    <div data-perfect-scrollbar>
+                                        <div class="page-section pt-lg-32pt">
+                                            <ul class="nav page-nav__menu">
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-subscription.html" class="nav-link">Subscription</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-upgrade.html" class="nav-link">Upgrade Account</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-payment-information.html" class="nav-link">Payment Information</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-billing.html" class="nav-link">Payment History</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-invoice.html" class="nav-link active">Invoice</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                    <strong>Basics of Vue.js</strong>
+                                    <i class="material-icons text-muted ml-auto" style="font-size: inherit;">check</i>
+                                </a>
+                                <div id="page-nav" class="col-lg-auto page-nav">
+                                    <div data-perfect-scrollbar>
+                                        <div class="page-section pt-lg-32pt">
+                                            <ul class="nav page-nav__menu">
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-subscription.html" class="nav-link">Subscription</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-upgrade.html" class="nav-link">Upgrade Account</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-account-billing-payment-information.html" class="nav-link">Payment Information</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-billing.html" class="nav-link">Payment History</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="fixed-student-invoice.html" class="nav-link active">Invoice</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -1,0 +1,25 @@
+/* Tabs*/
+#tabs{
+	background: #2196f3;
+    color: #eee;
+    justify-content: center;
+}
+
+#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #2196f3;
+    background-color: transparent;
+    border-color: transparent transparent #2196f3;
+    border-bottom: 4px solid !important;
+    //font-size: 20px;
+    //font-weight: bold;
+}
+#tabs .nav-tabs .nav-link {
+    //border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #eee;
+    //font-size: 20px;
+}
+.nav-foro{
+    justify-content: center;
+}

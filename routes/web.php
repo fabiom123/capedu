@@ -34,6 +34,7 @@ Route::group(['guard' => 'web'], function () {
 
 Route::group([ 'middleware' => 'instructor' ], function () {
     Route::view('/instructor', 'instructor/home');
+    Route::get('/cursos','Back\CursoController@show_courses');
 });
 
 Route::group([ 'middleware' => 'admin' ], function () {

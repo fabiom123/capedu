@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id_course');
             $table->string('name');
             $table->string('description');
+            $table->string('url_image');
             $table->string('periodo');
             $table->integer('duration');
             $table->integer('type');

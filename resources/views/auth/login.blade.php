@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label class="form-label" for="email">Correo electrónico:</label>
                         <div class="input-group input-group-merge">
-                            <input id="email" type="email" required="" class="form-control form-control-prepended" placeholder="Correo electrónico">
+                            <input id="email" type="email" name="email" required="" class="form-control form-control-prepended" placeholder="Correo electrónico">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label class="form-label" for="password">Contraseña:</label>
                         <div class="input-group input-group-merge">
-                            <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Contraseña">
+                            <input id="password" type="password" name="password" required="" class="form-control form-control-prepended" placeholder="Contraseña">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-key"></span>

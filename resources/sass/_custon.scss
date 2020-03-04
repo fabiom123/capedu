@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:400,500,700|Roboto:400,500);
-[dir=ltr]:root {
+:root {
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -34,8 +34,8 @@
 }
 
 *,
-[dir=ltr]:after,
-[dir=ltr]:before {
+:after,
+:before {
     box-sizing: border-box
 }
 
@@ -338,7 +338,7 @@ progress {
     -webkit-appearance: none
 }
 
-[dir=ltr]::-webkit-file-upload-button {
+::-webkit-file-upload-button {
     font: inherit;
     -webkit-appearance: button
 }
@@ -595,7 +595,7 @@ pre code {
 
 @media (min-width:1366px) {
     .container {
-        max-width: 1144px
+        max-width: 100vw
     }
 }
 
@@ -17777,8 +17777,8 @@ a.text-dark:hover {
 
 @media print {
     *,
-    [dir=ltr]:after,
-    [dir=ltr]:before {
+    :after,
+    :before {
         text-shadow: none!important;
         box-shadow: none!important
     }

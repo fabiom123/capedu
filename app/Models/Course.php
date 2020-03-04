@@ -11,10 +11,10 @@ use File;
 class Course extends Model {
     protected $table = 'courses';
 
-    protected $fillable = ['id_course','name','description','periodo','duration','type','state'];
+    protected $fillable = ['id_course','name','description','periodo','duration','type','state','instructor_id'];
 
     static public function get_courses(){
-        return DB::table($table)
+        return DB::table('courses')
         ->get();
     }
 }
