@@ -35,6 +35,8 @@ Route::group(['guard' => 'web'], function () {
 Route::group([ 'middleware' => 'instructor' ], function () {
     Route::view('/instructor', 'instructor/home');
     Route::get('/cursos','Back\CursoController@show_courses');
+    Route::get('/cursos/crear','Back\CursoController@show_form_courses');
+    Route::post('/cursos/store', 'Back\CursoController@store_curso'); 
 });
 
 Route::group([ 'middleware' => 'admin' ], function () {

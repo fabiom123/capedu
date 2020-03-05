@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+var axios = require('axios');
 
 window.Vue = require('vue');
 

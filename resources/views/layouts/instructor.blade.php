@@ -30,10 +30,8 @@
         <!-- Header Layout Content -->
         <div class="mdk-header-layout__content d-flex flex-column" style="padding-top: 64px;">
             <div class="page ">
-
-                @yield('content')
-
                 <div class="container page__container">
+                    @yield('content')
                     <div class="footer">
                         Copyright &copy; 2020 - <a href="http://themeforest.net/item/learnplus-learning-management-application/15287372?ref=mosaicpro">AREA DE INFORMATICA CAPEDU</a>
                     </div>

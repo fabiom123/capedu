@@ -16,12 +16,16 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.styles([
       'public/assets/css/quill.snow.css',
+      'public/assets/css/nestable.css',
+      'public/assets/css/flatpickr.min.css',
       'public/assets/css/tree.css',
 ], 'public/css/all.css');    
 
 mix.scripts([
       'public/assets/js/quill.min.js', 
-      'public/assets/js/setting.js'
+      'public/assets/js/nestable.js',
+      'public/assets/js/flatpickr.js',
+      'public/assets/js/setting.js',
 ], 'public/js/all.js');
- 
+  
 //mix.browserSync('http://localhost:8000/');
