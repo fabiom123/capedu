@@ -626,20 +626,69 @@ const YouTubeGetID = (e) => {
     //return ID;
     var iframe = document.querySelector('.embed-responsive-item')
     iframe.src = `https://www.youtube.com/embed/${ID}`
+    e.target.value = `https://www.youtube.com/watch?v=${ID}`
+    event.target.dataset.id = ID
 }
-
 const formCourse = async (event) => {
     event.preventDefault()
-
+    var estado_form_basic = false;
+    var estado_form_video = false;
+    const formData = new FormData()
+    /* forms */
+    var form_basic = document.getElementsByClassName('form-course-basic')
+    var form_video = document.getElementsByClassName('form-course-video')
+    var form_detalle = document.getElementsByClassName('form-course-detalle')
+    /* basic form*/
     let name = document.querySelector('input[name="name"]').value
     let editor_course = document.querySelector('.editor-course')
     let description = editor_course.children[0].innerHTML
     let url_image = document.querySelector('input[name="url_image"]')
- 
-    const formData = new FormData()
-    formData.set("name", name)
-    formData.set("description", description)
-    formData.append("url_image", url_image.files[0])
+    /* video form*/
+    let url_video = document.querySelector('input[name="url_video"]').value
+    /* detalle form*/
+    let category = document.getElementById("category").value
+    let duration = document.querySelector('input[name="duration"]').value 
+    let start_date = document.querySelector('input[name="start_date"]').value
+    let end_date = document.querySelector('input[name="end_date"]').value
+    var validation = Array.prototype.filter.call(form_basic, function(form) {
+        estado_form_basic = form.checkValidity()
+        if( estado_form_basic === true){
+            formData.set("name", name)
+            formData.set("description", description)
+            formData.append("url_image", url_image.files[0])
+        }
+        form.classList.add('was-validated');
+    });
+    if(estado_form_basic){
+        var validation = Array.prototype.filter.call(form_video, function(form) {
+            estado_form_video = form.checkValidity()
+            if( estado_form_video === true){
+                formData.set("url_video", url_video)
+            }
+            form.classList.add('was-validated');
+        });
+    }else{
+        var validation = Array.prototype.filter.call(form_video, function(form) {
+            form.classList.remove('was-validated');
+            estado_form_video = false
+        });
+    }
+    if(estado_form_video){
+        var validation = Array.prototype.filter.call(form_detalle, function(form) {
+            console.log(form.checkValidity())
+            if(form.checkValidity() === true){
+                formData.set("category", category)
+                formData.set("duration", duration)
+                formData.set("start_date", start_date)
+                formData.set("end_date", end_date)
+            }
+            form.classList.add('was-validated');
+        });
+    }else{
+        var validation = Array.prototype.filter.call(form_detalle, function(form) {
+            form.classList.remove('was-validated');
+        });
+    }
 
     axios({
         method: 'post',

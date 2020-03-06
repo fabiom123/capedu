@@ -20,7 +20,7 @@
                 <h4 class="card-title">Informacion Basica</h4>
             </div>
             <div class="card-body">
-               
+                <form action="" class="form-course-basic">
                     <div class="form-group">
                         <label class="form-label" for="name">Logo</label>
                         <div class="media align-items-center">
@@ -28,28 +28,31 @@
                                 <span class="avatar avatar-lg">
                                     <img class="img-fluid img-logo-curso" src="{{asset('images/default-image.jpg')}}" alt="logo-curso" style="border: 2px solid #f5f6f7;">
                                 </span>
-                            </div>
+                            </div> 
                             <div class="media-body">
                                 <div class="custom-file b-form-file">
-                                    <input type="file" id="url_image" name="url_image" aria-describedby="label-avatar-control" class="custom-file-input" onchange="previewfile('url_image','img-logo-curso')">
+                                    <input type="file" id="url_image" name="url_image" aria-describedby="label-avatar-control" class="custom-file-input" onchange="previewfile('url_image','img-logo-curso')" required />
                                     <label id="label-avatar-control" class="custom-file-label label-curso">Logo del curso</label>
+                                    <div class="invalid-feedback">Example invalid custom file feedback</div>
                                 </div>
                             </div> 
                         </div>
                     </div>
-
+                    
                     <div class="form-group">
                         <label class="form-label" for="name">Nombre</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Ingresa nombre del curso" value="{{ isset($name) ? $name : '' }}">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Ingresa nombre del curso" value="{{ isset($name) ? $name : '' }}" required />
+                        <div class="invalid-feedback">Nombre no valido</div>
+                        <div class="valid-feedback">Nombre valido</div>
                     </div>
-
+                    
                     <div class="form-group mb-0">
                         <label class="form-label">Descripcion</label>
                         <div class="editor-course">
                             <p>{{ isset($description) ? $description : '' }}</p>
                         </div>
                     </div>
-                
+                </form>
             </div>
         </div>
         <div class="card">
@@ -123,42 +126,55 @@
         </div>
     </div>
     <div class="col-md-4">
+        <form action="" class="form-course-video">
         <div class="card">
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" allowfullscreen=""></iframe>
             </div>
             <div class="card-body">
-                <input type="text" class="form-control" value="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"  onchange="YouTubeGetID(event)"/>
+                <label class="form-label" for="url_video">Video de introduccion</label>
+                <input type="text" name="url_video" data-id="" class="form-control" value="" placeholder="https://www.youtube.com/watch?v=VQ1a4SuXIiw" onchange="YouTubeGetID(event)" required />
+                <div class="invalid-feedback">URL no valida.</div>
+                <div class="valid-feedback">URL valida</div>
             </div>
         </div>
+        </form>
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Detalle</h4>
                 <p class="card-subtitle">Opciones extra</p>
             </div>
 
-            <form class="card-body" action="#" onsubmit="">
+            <form class="card-body form-course-detalle" action="#">
                 <div class="form-group">
                     <label class="form-label" for="category">Categoria</label>
-                    <select id="category" class="custom-select form-control">
+                    <select id="category" class="custom-select form-control" required>
+                        <option value="" selected>--Selecciona--</option>
                         <option value="0">Negocios</option>
                         <option value="1">Finanzas</option>
-                        <option value="2" selected>Tecnologia</option>
+                        <option value="2" >Tecnologia</option>
                         <option value="3">Administracion</option>
                         <option value="4">Contabilidad</option>
                     </select>
+                    <div class="invalid-feedback">Selecciona una categoria</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="duration">Duracion</label>
-                    <input type="text" id="duration" class="form-control" placeholder="No. of Days" value="10">
+                    <input type="text" id="duration" class="form-control" placeholder="Cantidad de Sessiones" value="" required>
+                    <div class="invalid-feedback">Cantidad no valida.</div>
+                    <div class="valid-feedback">Cantidad valida</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="start">Fecha de apertura</label>
-                    <input id="start" type="text" class="form-control" placeholder="Start Date" data-toggle="flatpickr" value="01/28/2016">
+                    <input id="start" type="text" class="form-control" placeholder="Fecha de apertura" data-toggle="flatpickr" value="" required>
+                    <div class="invalid-feedback">Fecha no valida.</div>
+                    <div class="valid-feedback">Fecha valida</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="end">Fecha de cierre</label>
-                    <input id="end" type="text" class="form-control" placeholder="Start Date" data-toggle="flatpickr" value="01/28/2016">
+                    <input id="end" type="text" class="form-control" placeholder="Fecha de cierre" data-toggle="flatpickr" value="" required>
+                    <div class="invalid-feedback">Fecha no valida.</div>
+                    <div class="valid-feedback">Fecha valida</div>
                 </div>
 
                 <div class="form-group mb-0">
