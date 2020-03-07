@@ -16,12 +16,16 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id_course');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('url_image');
-            $table->string('periodo');
+            $table->string('url_video');
+            $table->integer('category');
             $table->integer('duration');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->integer('type');
             $table->integer('state');
+            $table->string('periodo');
             $table->timestamps();
         });
     }

@@ -11,18 +11,18 @@
             <div class="flex mb-2 mb-sm-0">
                 <h1 class="h2">Manage Courses</h1>
             </div>
-            <a href="fixed-instructor-quiz-edit.html" class="btn btn-success">Add course</a>
+            <a href="fixed-instructor-quiz-edit.html" class="btn btn-success">Mis cursos</a>
         </div>
 
         <div class="card card-body border-left-3 border-left-primary navbar-shadow mb-4">
             <form action="#">
                 <div class="d-flex flex-wrap2 align-items-center mb-headings">
                     <div class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="btn btn-white"><i class="material-icons mr-sm-2">tune</i> <span class="d-none d-sm-block">Filters</span></a>
+                        <a href="#" data-toggle="dropdown" class="btn btn-white"><i class="material-icons mr-sm-2">tune</i> <span class="d-none d-sm-block">Filtrar</span></a>
                         <div class="dropdown-menu">
                             <div class="dropdown-item d-flex flex-column">
                                 <div class="form-group">
-                                    <label for="custom-select" class="form-label">Category</label><br>
+                                    <label for="custom-select" class="form-label">Categorias</label><br>
                                     <select id="custom-select" class="form-control custom-select" style="width: 200px;">
                                         <option selected>All categories</option>
                                         <option value="1">Vue.js</option>
@@ -70,19 +70,19 @@
         </div>
 
         <div class="row">
-
+            @forelse ($courses as $course)
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
 
                         <div class="d-flex flex-column flex-sm-row">
                             <a href="fixed-instructor-course-edit.html" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/vuejs.png" alt="Card image cap" class="avatar-img rounded">
+                                <img src="{{asset('uploads/cursos/'.$course->url_image)}}" alt="Card image cap" class="avatar-img rounded">
                             </a>
-                            <div class="flex" style="min-width: 200px;">
+                            <div class="flex" style="min-width: 200px;"> 
                                 <!-- <h5 class="card-title text-base m-0"><a href="fixed-instructor-course-edit.html"><strong>Learn Vue.js</strong></a></h5> -->
-                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">Learn Vue.js</a></h4>
-                                <p class="text-black-70">Let’s start with a quick tour of Vue’s data binding features.</p>
+                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">{!! $course->name !!}</a></h4>
+                                <div class="text-black-70 text-description-course">{!! $course->description !!}</div>
                                 <div class="d-flex align-items-end">
                                     <div class="d-flex flex flex-column mr-3">
                                         <div class="d-flex align-items-center py-1 border-bottom">
@@ -115,142 +115,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="fixed-instructor-course-edit.html" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/nodejs.png" alt="Card image cap" class="avatar-img rounded">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <!-- <h5 class="card-title text-base m-0"><a href="fixed-instructor-course-edit.html"><strong>Npm &amp; Gulp Advanced Workflow</strong></a></h5> -->
-                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">Npm &amp; Gulp Advanced Workflow</a></h4>
-                                <p class="text-black-70">Learn the basics of Github and become a power Github developer.</p>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-1 border-bottom">
-                                            <small class="text-black-70 mr-2">&dollar;421/mo</small>
-                                            <small class="text-black-50">12 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-1">
-                                            <small class="text-muted mr-2">GULP</small>
-                                            <small class="text-muted">INTERMEDIATE</small>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="fixed-instructor-course-edit.html" class="btn btn-sm btn-white">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card__options dropdown right-0 pr-2">
-                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                            <i class="material-icons">more_vert</i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="fixed-instructor-course-edit.html">Edit course</a>
-                            <a class="dropdown-item" href="#">Course Insights</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Delete course</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="fixed-instructor-course-edit.html" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/github.png" alt="Card image cap" class="avatar-img rounded">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <!-- <h5 class="card-title text-base m-0"><a href="fixed-instructor-course-edit.html"><strong>Github Webhooks for Beginners</strong></a></h5> -->
-                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">Github Webhooks for Beginners</a></h4>
-                                <p class="text-black-70">Developing static website with fast and advanced gulp setup.</p>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-1 border-bottom">
-                                            <small class="text-black-70 mr-2">&dollar;2,191/mo</small>
-                                            <small class="text-black-50">50 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-1">
-                                            <small class="text-muted mr-2">GULP</small>
-                                            <small class="text-muted">INTERMEDIATE</small>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="fixed-instructor-course-edit.html" class="btn btn-sm btn-white">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card__options dropdown right-0 pr-2">
-                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                            <i class="material-icons">more_vert</i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="fixed-instructor-course-edit.html">Edit course</a>
-                            <a class="dropdown-item" href="#">Course Insights</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Delete course</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="fixed-instructor-course-edit.html" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/gulp.png" alt="Card image cap" class="avatar-img rounded">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <!-- <h5 class="card-title text-base m-0"><a href="fixed-instructor-course-edit.html"><strong>Gulp &amp; Slush Workflows</strong></a></h5> -->
-                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">Gulp &amp; Slush Workflows</a></h4>
-                                <p class="text-black-70">Let’s start with a quick tour of Vue’s data binding features.</p>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-1 border-bottom">
-                                            <small class="text-black-70 mr-2">&dollar;300/mo</small>
-                                            <small class="text-black-50">5 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-1">
-                                            <small class="text-muted mr-2">GULP</small>
-                                            <small class="text-muted">INTERMEDIATE</small>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="fixed-instructor-course-edit.html" class="btn btn-sm btn-white">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card__options dropdown right-0 pr-2">
-                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                            <i class="material-icons">more_vert</i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="fixed-instructor-course-edit.html">Edit course</a>
-                            <a class="dropdown-item" href="#">Course Insights</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Delete course</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @empty
+                <div class="text-black-70">No has registrado ningun curso aun.</div>
+            @endforelse
         </div>
 
         <!-- Pagination -->

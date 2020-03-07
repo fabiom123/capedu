@@ -1,4 +1,6 @@
 //import axios from 'axios'
+//import Swal from 'sweatalert2';
+
 document.addEventListener("DOMContentLoaded", function(event) {
     /* alumnos : para el manejo de materiales */
     materiales('tree2');
@@ -6,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     editor('editor-course','Ingresa descripcion del curso');
     nestable('nestable');
     flatpickr('flatpickr');
+    truncateText('.text-description-course',107)
 });
 const materiales = (elemt) => {
     var openedClass = 'fa-folder-open';
@@ -146,6 +149,7 @@ const formCourse = async (event) => {
     var form_detalle = document.getElementsByClassName('form-course-detalle')
     /* basic form*/
     let name = document.querySelector('input[name="name"]').value
+    let instructor_id = document.querySelector('input[name="instructor_id"]').value
     let editor_course = document.querySelector('.editor-course')
     let description = editor_course.children[0].innerHTML
     let url_image = document.querySelector('input[name="url_image"]')
@@ -156,11 +160,13 @@ const formCourse = async (event) => {
     let duration = document.querySelector('input[name="duration"]').value 
     let start_date = document.querySelector('input[name="start_date"]').value
     let end_date = document.querySelector('input[name="end_date"]').value
+    /* validacion */
     var validation = Array.prototype.filter.call(form_basic, function(form) {
         estado_form_basic = form.checkValidity()
         if( estado_form_basic === true){
             formData.set("name", name)
             formData.set("description", description)
+            formData.set("instructor_id", instructor_id)
             formData.append("url_image", url_image.files[0])
         }
         form.classList.add('was-validated');
@@ -206,7 +212,26 @@ const formCourse = async (event) => {
             'Content-Type': 'multipart/form-data'}
         })
         .then(function (response) {
-            //handle success
+            console.log(response.status)
+            if(response.status === 200){ 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exito',
+                    showCloseButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                    text: 'Se registro su curso correctamente',
+                })
+                .then(function (result) {
+                    if (result.value) {
+                        window.location = "/cursos";
+                    }
+                })
+            }else{
+
+            }
+            //reset form
             console.log(response);
         })
         .catch(function (response) {
@@ -215,6 +240,19 @@ const formCourse = async (event) => {
         });
     
 }
+const truncateText = (elemt, maxLength) => {
+    var elements = document.querySelectorAll(elemt);
+    for (var i = 0; i < elements.length; i++) { 
+        var element = elements[i],
+        truncated = element.innerText;
+
+        if (truncated.length > maxLength) {
+            truncated = truncated.substr(0,maxLength) + '...';
+        }
+        element.innerText = truncated;
+    }
+}
+
 /*document.getElementById('question').addEventListener('click', ()=>{
     editor('editor')
 });*/

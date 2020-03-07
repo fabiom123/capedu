@@ -1,5 +1,6 @@
 @extends('layouts.instructor')
 @section('content')
+
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="fixed-instructor-dashboard.html">Home</a></li>
     <li class="breadcrumb-item"><a href="fixed-instructor-courses.html">Courses</a></li>
@@ -21,6 +22,7 @@
             </div>
             <div class="card-body">
                 <form action="" class="form-course-basic">
+                <input type="hidden" name="instructor_id" value="{!! $instructor_id !!}">    
                     <div class="form-group">
                         <label class="form-label" for="name">Logo</label>
                         <div class="media align-items-center">
@@ -38,7 +40,18 @@
                             </div> 
                         </div>
                     </div>
-                    
+                    <div class="form-group">
+                        <label class="form-label" for="category">Categoria</label>
+                        <select id="category" name="category" class="custom-select form-control" required>
+                            <option value="" selected>--Selecciona--</option>
+                            <option value="0">Negocios</option>
+                            <option value="1">Finanzas</option>
+                            <option value="2" >Tecnologia</option>
+                            <option value="3">Administracion</option>
+                            <option value="4">Contabilidad</option>
+                        </select>
+                        <div class="invalid-feedback">Selecciona una categoria</div>
+                    </div>
                     <div class="form-group">
                         <label class="form-label" for="name">Nombre</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Ingresa nombre del curso" value="{{ isset($name) ? $name : '' }}" required />
@@ -147,32 +160,30 @@
 
             <form class="card-body form-course-detalle" action="#">
                 <div class="form-group">
-                    <label class="form-label" for="category">Categoria</label>
-                    <select id="category" class="custom-select form-control" required>
+                    <label class="form-label" for="category">Nivel</label>
+                    <select id="category" name="level" class="custom-select form-control" required>
                         <option value="" selected>--Selecciona--</option>
-                        <option value="0">Negocios</option>
-                        <option value="1">Finanzas</option>
-                        <option value="2" >Tecnologia</option>
-                        <option value="3">Administracion</option>
-                        <option value="4">Contabilidad</option>
+                        <option value="0">Basico</option>
+                        <option value="1">Intermedio</option>
+                        <option value="2" >Avanzado</option>
                     </select>
                     <div class="invalid-feedback">Selecciona una categoria</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="duration">Duracion</label>
-                    <input type="text" id="duration" class="form-control" placeholder="Cantidad de Sessiones" value="" required>
+                    <input type="text" id="duration" name="duration" class="form-control" placeholder="Cantidad de Sessiones" value="" required>
                     <div class="invalid-feedback">Cantidad no valida.</div>
                     <div class="valid-feedback">Cantidad valida</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="start">Fecha de apertura</label>
-                    <input id="start" type="text" class="form-control" placeholder="Fecha de apertura" data-toggle="flatpickr" value="" required>
+                    <input id="start" type="text" name="start_date" class="form-control" placeholder="Fecha de apertura" data-toggle="flatpickr" value="" required>
                     <div class="invalid-feedback">Fecha no valida.</div>
                     <div class="valid-feedback">Fecha valida</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="end">Fecha de cierre</label>
-                    <input id="end" type="text" class="form-control" placeholder="Fecha de cierre" data-toggle="flatpickr" value="" required>
+                    <input id="end" type="text" name="end_date" class="form-control" placeholder="Fecha de cierre" data-toggle="flatpickr" value="" required>
                     <div class="invalid-feedback">Fecha no valida.</div>
                     <div class="valid-feedback">Fecha valida</div>
                 </div>
