@@ -1,15 +1,17 @@
 //import axios from 'axios'
 //import Swal from 'sweatalert2';
+let currentLocation = window.location.pathname
+currentLocation = currentLocation.replace('/','')
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    /* alumnos : para el manejo de materiales */
-    materiales('tree2');
-    /* instructor : form courses */ 
-    editor('editor-course','Ingresa descripcion del curso');
-    nestable('nestable');
-    flatpickr('flatpickr');
-    truncateText('.text-description-course',107)
+     /* alumnos : para el manejo de materiales */
+     materiales('tree2');
+     /* instructor : form courses */ 
+     editor('editor-course','Ingresa descripcion del curso');
+     nestable('nestable');
+     flatpickr('flatpickr');
 });
+
 const materiales = (elemt) => {
     var openedClass = 'fa-folder-open';
     var closedClass = 'fa-folder';
@@ -240,19 +242,6 @@ const formCourse = async (event) => {
         });
     
 }
-const truncateText = (elemt, maxLength) => {
-    var elements = document.querySelectorAll(elemt);
-    for (var i = 0; i < elements.length; i++) { 
-        var element = elements[i],
-        truncated = element.innerText;
-
-        if (truncated.length > maxLength) {
-            truncated = truncated.substr(0,maxLength) + '...';
-        }
-        element.innerText = truncated;
-    }
-}
-
 /*document.getElementById('question').addEventListener('click', ()=>{
     editor('editor')
 });*/

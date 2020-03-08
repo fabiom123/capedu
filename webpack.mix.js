@@ -25,7 +25,11 @@ mix.scripts([
       'public/assets/js/quill.min.js', 
       'public/assets/js/nestable.js',
       'public/assets/js/flatpickr.js',
-      'public/assets/js/setting.js',
-], 'public/js/all.js');
+      'public/assets/js/form-course.js',
+], 'public/js/form-course.js');
+
+mix.scripts([
+      'public/assets/js/list-course.js',
+], 'public/js/list-course.js');
   
 //mix.browserSync('http://localhost:8000/');

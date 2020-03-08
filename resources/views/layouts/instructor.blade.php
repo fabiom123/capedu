@@ -11,15 +11,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/all.js') }}" defer></script>
-    <!-- Fonts -->
+    @yield('scripts') 
+    <!-- Fonts --> 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
-    
+    @yield('styles')
 </head>
 <body class="fixed-layout">
     
@@ -39,10 +39,9 @@
             </div>
         </div>
         <!-- // END Header Layout Content -->
-
         <!-- // END Header -->
     </div>
     <!-- // END Header Layout -->
-
+    @yield('modals')
 </body>
 </html>

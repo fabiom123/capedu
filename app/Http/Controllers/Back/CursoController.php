@@ -38,7 +38,7 @@ class CursoController extends Controller {
         }
         /*insert data */
         try {
-            $id_course = Course::insertGetId([
+            Course::create([
                 'name' => $input['name'],
                 'description' =>  isset($input['description']) ? $input['description'] : null,
                 'url_image' => isset($input['url_image']) ? $input['url_image'] : null,
@@ -53,7 +53,6 @@ class CursoController extends Controller {
                 'state' => 1
             ]);
             return response()->json([
-                'id_course' => $id_course,
                 'status' => true 
             ]);
         } catch (\Exception $e) {
@@ -62,5 +61,14 @@ class CursoController extends Controller {
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+   
+    public function find_course($id){
+       $instructor_id = Auth::guard('instructor')->user()->id;
+       $course = Course::find($id);
+       return view ('instructor.courses.form', [
+        'instructor_id'    =>    $instructor_id,
+        'course'          =>    $course   
+       ]);
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.instructor')
-
+@section('scripts')
+<script src="{{ asset('js/list-course.js') }}" defer></script>
+@endsection
 @section('content')
     <div class="container page__container">
         <ol class="breadcrumb">
@@ -76,12 +78,12 @@
                     <div class="card-body">
 
                         <div class="d-flex flex-column flex-sm-row">
-                            <a href="fixed-instructor-course-edit.html" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
+                            <a href="/cursos/{!! $course->id !!}" class="avatar avatar-lg avatar-4by3 mb-3 w-xs-plus-down-100 mr-sm-3">
                                 <img src="{{asset('uploads/cursos/'.$course->url_image)}}" alt="Card image cap" class="avatar-img rounded">
                             </a>
                             <div class="flex" style="min-width: 200px;"> 
                                 <!-- <h5 class="card-title text-base m-0"><a href="fixed-instructor-course-edit.html"><strong>Learn Vue.js</strong></a></h5> -->
-                                <h4 class="card-title mb-1"><a href="fixed-instructor-course-edit.html">{!! $course->name !!}</a></h4>
+                                <h4 class="card-title mb-1"><a href="/cursos/{!! $course->id !!}">{!! $course->name !!}</a></h4>
                                 <div class="text-black-70 text-description-course">{!! $course->description !!}</div>
                                 <div class="d-flex align-items-end">
                                     <div class="d-flex flex flex-column mr-3">
@@ -95,7 +97,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <a href="fixed-instructor-course-edit.html" class="btn btn-sm btn-white">Edit</a>
+                                        <a href="/cursos/{!! $course->id !!}" class="btn btn-sm btn-white">Edit</a>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +109,7 @@
                             <i class="material-icons">more_vert</i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="fixed-instructor-course-edit.html">Edit course</a>
+                            <a class="dropdown-item" href="/cursos/{!! $course->id !!}">Edit course</a> 
                             <a class="dropdown-item" href="#">Course Insights</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="#">Delete course</a>
