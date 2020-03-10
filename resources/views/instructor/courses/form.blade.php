@@ -14,7 +14,7 @@
         <h1 class="h2">{{ isset($title) ? 'Editar' : 'Crear' }}</h1>
     </div>
     <div class="media-right">
-        <a href="#" class="btn btn-success" onclick="formCourse(event)">{{ isset($title) ? 'Editar' : 'Guardar' }}</a>
+        <a href="#" class="btn btn-success" data-operation ="{{ isset($course->id) ? 'update' : 'insert' }}" onclick="formCourse(event)">{{ isset($course->id) ? 'Editar' : 'Guardar' }}</a>
     </div>
 </div>
 <div class="row">
@@ -25,7 +25,9 @@
             </div>
             <div class="card-body">
                 <form action="" class="form-course-basic">
-                <input type="hidden" name="instructor_id" value="{!! $instructor_id !!}">    
+                <input type="hidden" name="instructor_id" value="{!! $instructor_id !!}
+                "/>
+                <input type="hidden" name="course_id" value="{{ isset($course->id) ? $course->id : '' }}"/>    
                     <div class="form-group">
                         <label class="form-label" for="name">Logo</label>
                         <div class="media align-items-center">
@@ -40,8 +42,8 @@
                             </div> 
                             <div class="media-body">
                                 <div class="custom-file b-form-file">
-                                <input type="file" id="url_image" name="url_image" aria-describedby="label-avatar-control" class="custom-file-input" onchange="previewfile('url_image','img-logo-curso')" value="{{ $course->url_image ? $course->url_image : '' }}" required />
-                                    <label id="label-avatar-control" class="custom-file-label label-curso">{{ $course->url_image ? $course->url_image : '' }}</label>
+                                <input type="file" id="url_image" name="url_image" aria-describedby="label-avatar-control" data-content="{{ isset($course->url_image) ? $course->url_image : '' }}" class="custom-file-input" onchange="previewfile('url_image','img-logo-curso')" required />
+                                    <label id="label-avatar-control" class="custom-file-label label-curso">{{ isset($course->url_image) ? $course->url_image : '' }}</label>
                                     <div class="invalid-feedback">Sube un logo para este curso</div>
                                 </div>
                             </div> 
@@ -51,11 +53,20 @@
                         <label class="form-label" for="category">Categoria</label>
                         <select id="category" name="category" class="custom-select form-control" required>
                             <option value="" selected>--Selecciona--</option>
-                            <option value="0" {{ isset($course->category) == 0 ? 'selected' : '' }}>Negocios</option>
-                            <option value="1" {{ isset($course->category) == 1 ? 'selected' : '' }}>Finanzas</option>
-                            <option value="2"  {{  isset($course->category) == 2 ? 'selected' : '' }}>Tecnologia</option>
-                            <option value="3" {{ isset($course->category) == 3 ? 'selected' : '' }}>Administracion</option>
-                            <option value="4"{{( isset($course->category) == 4) ? 'selected' : '' }}>Contabilidad</option>
+                            @isset($course->category)
+                                <option value="0" {{ $course->category == 0 ? 'selected' : '' }}>Negocios</option>
+                                <option value="1" {{ $course->category == 1 ? 'selected' : '' }}>Finanzas</option>
+                                <option value="2"  {{ $course->category == 2 ? 'selected' : '' }}>Tecnologia</option>
+                                <option value="3" {{ $course->category == 3 ? 'selected' : '' }}>Administracion</option>
+                                <option value="4"{{( $course->category == 4) ? 'selected' : '' }}>Contabilidad</option>
+                            @else
+                                <option value="0">Negocios</option>
+                                <option value="1">Finanzas</option>
+                                <option value="2">Tecnologia</option>
+                                <option value="3">Administracion</option>
+                                <option value="4">Contabilidad</option>
+                            @endisset
+                        
                         </select>
                         <div class="invalid-feedback">Selecciona una categoria</div>
                     </div>
@@ -69,20 +80,21 @@
                     <div class="form-group mb-0">
                         <label class="form-label">Descripcion</label>
                         <div class="editor-course">
-                            <p>{{ isset($course->description) ? $course->description : '' }}</p>
-                        </div>
-                    </div>
+                            {{ isset($course->description) ? $course->description : '' }} 
+                        </div> 
+                    </div> 
                 </form>
             </div>
         </div>
+        @isset($course->id)
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Sesiones</h4>
             </div>
             <div class="card-body">
-                <p><a href="fixed-instructor-lesson-add.html" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Agregar Session<i class="material-icons">add</i></a></p>
+                <p><a href="fixed-instructor-lesson-add.html" class="btn btn-primary" data-toggle="modal" data-target="#sessions">Agregar Session<i class="material-icons">add</i></a></p>
                 <div class="nestable" id="nestable-handles-primary">
-                    <ul class="nestable-list">
+                    <ul class="nestable-list" id="session-list">
                         <li class="nestable-item nestable-item-handle" data-id="2">
                             <div class="nestable-handle"><i class="material-icons">menu</i></div>
                             <div class="nestable-content">
@@ -144,18 +156,19 @@
                 </div>
             </div>
         </div>
+        @endisset
     </div>
     <div class="col-md-4">
         <form action="" class="form-course-video">
         <div class="card">
             <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" allowfullscreen=""></iframe>
+                <iframe class="embed-responsive-item embed-course" src="https://www.youtube.com/embed/yZevGkXmgq8" allowfullscreen=""></iframe>
             </div>
             <div class="card-body">
                 <label class="form-label" for="url_video">Video de introduccion</label>
-                <input type="text" name="url_video" data-id="" class="form-control" value="{{ isset($course->url_video) ? $course->url_video  : '' }}" placeholder="https://www.youtube.com/watch?v=VQ1a4SuXIiw" onchange="YouTubeGetID(event)" required />
+                <input type="text" name="url_video" data-id="" class="form-control" placeholder="https://www.youtube.com/watch?v=yZevGkXmgq8" value="{{ isset($course->url_video) ? $course->url_video : '' }}" onchange="YouTubeGetID(event,'embed-course')" required /> 
                 <div class="invalid-feedback">URL no valida.</div>
-                <div class="valid-feedback">URL valida</div>
+                <div class="valid-feedback">URL valida</div> 
             </div>
         </div>
         </form>
@@ -230,7 +243,8 @@
 @endsection
 @section('modals')
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+@isset($course->id)
+<div class="modal fade" id="sessions" tabindex="-1" role="dialog" aria-labelledby="sessionsTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -240,55 +254,53 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="#">
+            <form action="#" class="form-course-modal">
                 <div class="form-group row">
                     <label for="title" class="col-md-3 col-form-label form-label">Titulo</label>
                     <div class="col-md-9">
-                        <input id="title" type="text" name="name" class="form-control" placeholder="Titulo de la clase">
+                        <input id="title" type="text" name="name-session" class="form-control" placeholder="Titulo de la clase">
+                        <div class="invalid-feedback">Titulo no valido</div>
+                        <div class="valid-feedback">Titulo valido</div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="course" class="col-md-3 col-form-label form-label">Cursos</label>
-                    <div class="col-md-9">
-                        <select id="course" class="custom-control custom-select form-control">
-                            <option value="#">HTML</option>
-                            <option value="#">Angular JS</option>
-                            <option value="#" selected>Vue.js</option>
-                            <option value="#">CSS / LESS</option>
-                            <option value="#">Design / Concept</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label form-label">Subir Video de la clase</label>
+                    <label class="col-md-3 col-form-label form-label">URL del video</label>
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" value="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" />
+                                    <input type="text" class="form-control" name="url_video_session" data-id="" value="" placeholder="https://www.youtube.com/watch?v=yZevGkXmgq8" onchange="YouTubeGetID(event,'embed-modal-course')" required/> 
                                     <small class="form-text text-muted d-flex align-items-center">
                                         <i class="material-icons font-size-16pt mr-1">ondemand_video</i>
-                                        <span class="icon-text">Paste Video</span>
+                                        <span class="icon-text">Pega el link del video</span>
                                     </small>
+                                    <div class="invalid-feedback">URL no valida.</div>
+                                    <div class="valid-feedback">URL valida</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" allowfullscreen=""></iframe>
+                                        <iframe class="embed-responsive-item embed-modal-course" src="https://www.youtube.com/embed/yZevGkXmgq8" allowfullscreen=""></iframe>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="form-group row mb-0">
+                    <label for="title" class="col-md-3 col-form-label form-label">Descripcion</label>
+                    <div class="col-md-9 modal-description" style="height: 100%;">
+                    </div>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
-        </div>
+          <button type="button" class="btn btn-primary" onclick="formModal(event)">Guardar</button>
+        </div> 
       </div>
     </div>
 </div>
+@endisset
 @endsection

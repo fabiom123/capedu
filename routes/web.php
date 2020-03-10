@@ -38,6 +38,8 @@ Route::group([ 'middleware' => 'instructor' ], function () {
     Route::get('/cursos/crear','Back\CursoController@show_form_courses');
     Route::post('/cursos/store', 'Back\CursoController@store_curso'); 
     Route::get('/cursos/{id}', 'Back\CursoController@find_course');
+    Route::post('/cursos/update', 'Back\CursoController@update_curso');
+    Route::post('/session/store', 'Back\SessionController@store_session');  
 });
 
 Route::group([ 'middleware' => 'admin' ], function () {

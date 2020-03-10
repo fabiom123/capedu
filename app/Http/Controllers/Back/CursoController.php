@@ -53,6 +53,7 @@ class CursoController extends Controller {
                 'state' => 1
             ]);
             return response()->json([
+                'msj' => 'Registro de curso exitoso',
                 'status' => true 
             ]);
         } catch (\Exception $e) {
@@ -66,9 +67,46 @@ class CursoController extends Controller {
     public function find_course($id){
        $instructor_id = Auth::guard('instructor')->user()->id;
        $course = Course::find($id);
+       $distinct_courses = Course::get_distinct_course();
        return view ('instructor.courses.form', [
         'instructor_id'    =>    $instructor_id,
-        'course'          =>    $course   
+        'course'           =>    $course,   
+        'distinct_courses' =>    $distinct_courses,
        ]);
+    }
+    public function update_curso(Request $request){
+        $input = $request->all();
+        $now = Carbon::now();
+        if ($request->hasFile('url_image')){
+            $filename = $request->file('url_image')->getClientOriginalName();
+            $file = file_get_contents($request->file('url_image')->getRealPath());
+            Storage::disk('cursos')->put($filename, $file);
+            $input['url_image'] = $filename;
+        }
+        try {
+            $courses = Course::find($input['id']);
+            $courses->name = $input['name'];
+            $courses->description =  isset($input['description']) ? $input['description'] : null;
+            $courses->url_image = isset($input['url_image']) ? $input['url_image'] : null;
+            $courses->url_video = isset($input['url_video']) ? $input['url_video'] : null;
+            $courses->category = isset($input['category']) ? $input['category'] : null;
+            $courses->duration = isset($input['duration']) ? $input['duration'] : null;
+            $courses->start_date = isset($input['start_date']) ? $input['start_date'] : null;
+            $courses->end_date = isset($input['end_date']) ? $input['end_date'] : null;
+            $courses->type = 2;
+            $courses->instructor_id = $input['instructor_id'];
+            $courses->periodo = $now->year;
+            $courses->state = 1;
+            $courses->save();
+            return response()->json([
+                'msj' => 'Actulizacion de curso exitosa',
+                'status' => true 
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

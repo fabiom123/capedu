@@ -31,5 +31,9 @@ mix.scripts([
 mix.scripts([
       'public/assets/js/list-course.js',
 ], 'public/js/list-course.js');
+
+mix.scripts([
+      'public/assets/js/form-session.js',
+], 'public/js/form-session.js');
   
 //mix.browserSync('http://localhost:8000/');

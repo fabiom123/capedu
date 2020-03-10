@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/css/all.css": "/css/all.css",
     "/js/form-course.js": "/js/form-course.js",
-    "/js/list-course.js": "/js/list-course.js"
+    "/js/list-course.js": "/js/list-course.js",
+    "/js/form-session.js": "/js/form-session.js"
 }

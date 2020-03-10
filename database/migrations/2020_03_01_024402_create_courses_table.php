@@ -26,6 +26,7 @@ class CreateCoursesTable extends Migration
             $table->integer('type');
             $table->integer('state');
             $table->string('periodo');
+            $table->string('instructor_id');
             $table->timestamps();
         });
     }

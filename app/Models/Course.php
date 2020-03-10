@@ -17,4 +17,10 @@ class Course extends Model {
         return DB::table('courses')
         ->get();
     }
+    static public function get_distinct_course (){
+        return DB::table('courses')
+                    ->select('id', 'name')
+                    ->distinct()
+                    ->get();
+    }
 }
