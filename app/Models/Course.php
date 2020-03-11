@@ -22,5 +22,12 @@ class Course extends Model {
                     ->select('id', 'name')
                     ->distinct()
                     ->get();
+    } 
+    static public function get_lessons($id){
+        return DB::table('courses')
+        ->join('lessons', 'courses.id', '=', 'lessons.course_id')
+        ->select('lessons.*', 'courses.url_image')
+        ->where('courses.id', '=', intval($id))
+        ->get(); 
     }
 }

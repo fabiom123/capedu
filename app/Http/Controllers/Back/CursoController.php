@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Lesson;
 use Carbon\Carbon;
 use Auth;
 use Storage;
@@ -68,9 +69,12 @@ class CursoController extends Controller {
        $instructor_id = Auth::guard('instructor')->user()->id;
        $course = Course::find($id);
        $distinct_courses = Course::get_distinct_course();
+       $lessons = Course::get_lessons($id);
+       //var_dump($lessons);exit;
        return view ('instructor.courses.form', [
         'instructor_id'    =>    $instructor_id,
-        'course'           =>    $course,   
+        'course'           =>    $course,  
+        'lessons'          =>   $lessons, 
         'distinct_courses' =>    $distinct_courses,
        ]);
     }

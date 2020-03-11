@@ -39,6 +39,7 @@ Route::group([ 'middleware' => 'instructor' ], function () {
     Route::post('/cursos/store', 'Back\CursoController@store_curso'); 
     Route::get('/cursos/{id}', 'Back\CursoController@find_course');
     Route::post('/cursos/update', 'Back\CursoController@update_curso');
+    Route::post('/lesson/store', 'Back\SessionController@store_lesson'); 
     Route::post('/session/store', 'Back\SessionController@store_session');  
 });
 

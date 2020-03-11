@@ -756,7 +756,83 @@ const formCourse = async (event) => {
         });
     
 }
-const formModal = async (event) => {
+const formModalLesson = async (event) => {
+    event.preventDefault()
+    let url = '/lesson/store' 
+    let instructor_id = document.querySelector('input[name="instructor_id"]').value
+    let id = document.querySelector('input[name="course_id"]').value
+    let name = document.querySelector('input[name="name-session"]').value
+    /*validate*/
+    let form_modal_class = document.getElementsByClassName('form-course-modal')
+    const formModalData = new FormData()
+    Array.prototype.filter.call(form_modal_class, function(form) {
+        estado_form_modal = form.checkValidity()
+        if( estado_form_modal === true){
+            formModalData.set("course_id", id)
+            formModalData.set("instructor_id", instructor_id)
+            formModalData.set("name", name)
+        }
+        form.classList.add('was-validated');
+    });
+    /*insert*/
+    axios({
+        method: 'post',
+        url: url,
+        data: formModalData,
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes.content.textContent,
+            'Content-Type': 'multipart/form-data'}
+        })
+        .then(function (response) {
+            //handle success
+                let logo = document.querySelector('.img-logo-curso').src
+                let template_session = `<li class="nestable-item nestable-item-handle" data-id="3">
+                <div class="nestable-handle"><i class="material-icons">swap_vert</i></div>
+                <div class="nestable-content">
+                    <div class="d-flex align-items-center card-header" style="padding: 0;">
+                        <a href="fixed-student-take-course.html" class="mr-3">
+                            <img src="${logo}" width="100" alt="" class="rounded">
+                        </a>
+                        <div class="flex">
+                            <h4 class="card-title mb-0"><a href="fixed-student-take-course.html">${response.data.lesson.name}</a></h4>
+                            <span class="badge badge-primary">Advanced</span>
+                        </div>
+                        <div class="media-right">
+                            <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"><i class="material-icons">menu</i></a>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#sessions"><i class="material-icons">add_circle</i>Agregar sesion</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons">edit</i>Editar clase</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons">remove_circle</i>Eliminar clase</a>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-fit">
+                    ${Object.keys(lesson).map(function (key) {
+                        return "<option value='" + key + "'>xxxx</option>"           
+                    }).join("")}
+                        <li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
+                            <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                <strong>Basics of Vue.js</strong>
+                                <div class="media-right">
+                                    <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm" data-toggle="modal" data-target="#sessions"><i class="material-icons">edit</i></a>
+                                    <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>`;
+            document.querySelector('.nestable-list').insertAdjacentHTML('beforeend',template_session)
+            //console.log(response.data.session.name);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+    /*update*/
+}
+const formModalSession = async (event) => {
     event.preventDefault()
     let url = '/session/store'
     let instructor_id = document.querySelector('input[name="instructor_id"]').value
@@ -771,8 +847,6 @@ const formModal = async (event) => {
     Array.prototype.filter.call(form_modal, function(form) {
         estado_form_modal = form.checkValidity()
         if( estado_form_modal === true){
-            formModalData.set("course_id", id)
-            formModalData.set("instructor_id", instructor_id)
             formModalData.set("name", name)
             formModalData.set("description", description)
             formModalData.append("url_video", url_video)
@@ -791,28 +865,7 @@ const formModal = async (event) => {
         })
         .then(function (response) {
             //handle success
-                let logo = document.querySelector('.img-logo-curso').src
-                let template_session = `<li class="nestable-item nestable-item-handle" data-id="2">
-                <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                <div class="nestable-content">
-                    <div class="media align-items-center">
-                        <div class="media-left">
-                            <img src="${logo}" alt="" width="100" class="rounded">
-                        </div>
-                        <div class="media-body">
-                            <h5 class="card-title h6 mb-0">
-                                <a href="fixed-instructor-lesson-add.html">${response.data.session.name}</a>
-                            </h5>
-                            <small class="text-muted">${response.data.session.created_at}</small>
-                        </div>
-                        <div class="media-right">
-                            <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                        </div>
-                    </div>
-                </div>
-            </li>`
-            document.querySelector('.nestable-list').insertAdjacentHTML('beforeend',template_session)
-            //console.log(response.data.session.name);
+            console.log(response);
         })
         .catch(function (response) {
             //handle error
@@ -820,6 +873,7 @@ const formModal = async (event) => {
         });
     /*update*/
 }
+
 /*document.getElementById('question').addEventListener('click', ()=>{
     editor('editor')
 });*/

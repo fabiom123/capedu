@@ -89,73 +89,52 @@
         @isset($course->id)
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Sesiones</h4>
+                <h4 class="card-title">Clases</h4>
             </div>
             <div class="card-body">
-                <p><a href="fixed-instructor-lesson-add.html" class="btn btn-primary" data-toggle="modal" data-target="#sessions">Agregar Session<i class="material-icons">add</i></a></p>
+                <p><a href="fixed-instructor-lesson-add.html" class="btn btn-primary" data-toggle="modal" data-target="#class">Agregar Clase<i class="material-icons">add</i></a></p>
                 <div class="nestable" id="nestable-handles-primary">
                     <ul class="nestable-list" id="session-list">
-                        <li class="nestable-item nestable-item-handle" data-id="2">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
+                        @foreach ($lessons as $lesson)
+                            <li class="nestable-item nestable-item-handle" data-id="3">
+                            <div class="nestable-handle"><i class="material-icons">swap_vert</i></div>
                             <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="{{asset('images/vuejs.png')}}" alt="" width="100" class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="card-title h6 mb-0">
-                                            <a href="fixed-instructor-lesson-add.html">Awesome Vue.js with SASS Processing</a>
-                                        </h5>
-                                        <small class="text-muted">updated 1 month ago</small>
+                                <div class="d-flex align-items-center card-header" style="padding: 0;">
+                                    <a href="fixed-student-take-course.html" class="mr-3">
+                                        <img src="{{asset('uploads/cursos/'.$lesson->url_image)}}" width="100" alt="" class="rounded">
+                                    </a>
+                                    <div class="flex">
+                                        <h4 class="card-title mb-0"><a href="fixed-student-take-course.html">{!!$lesson->name!!}</a></h4>
+                                        <span class="badge badge-primary">Advanced</span>
                                     </div>
                                     <div class="media-right">
-                                        <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
+                                        <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"><i class="material-icons">menu</i></a>
+                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#sessions"><i class="material-icons">add_circle</i>Agregar sesion</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons">edit</i>Editar clase</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons">remove_circle</i>Eliminar clase</a>
+                                        </div>
                                     </div>
                                 </div>
+                                <ul class="list-group list-group-fit">
+                                    <li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
+                                        <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                            <strong>Basics of Vue.js</strong>
+                                            <div class="media-right">
+                                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm" data-toggle="modal" data-target="#sessions"><i class="material-icons">edit</i></a>
+                                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </li>
-                        <li class="nestable-item nestable-item-handle" data-id="1">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                            <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="{{asset('images/nodejs.png')}}" alt="" width="100" class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="card-title h6 mb-0">
-                                            <a href="fixed-instructor-lesson-add.html">Github Webhooks for Beginners</a>
-                                        </h4>
-                                        <small class="text-muted">updated 1 month ago</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nestable-item nestable-item-handle" data-id="2">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                            <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="{{asset('images/gulp.png')}}" alt="" width="100" class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="card-title h6 mb-0">
-                                            <a href="fixed-instructor-lesson-add.html">Browserify: Writing Modular JavaScript</a>
-                                        </h4>
-                                        <small class="text-muted">updated 1 month ago</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        </li>    
+                        @endforeach
                     </ul>
                 </div>
             </div>
         </div>
+       
         @endisset
     </div>
     <div class="col-md-4">
@@ -244,6 +223,34 @@
 @section('modals')
 <!-- Modal -->
 @isset($course->id)
+<div class="modal fade" id="class" tabindex="-1" role="dialog" aria-labelledby="classTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Sesión</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="#" class="form-course-modal">
+                <div class="form-group row">
+                    <label for="title" class="col-md-3 col-form-label form-label">Titulo</label>
+                    <div class="col-md-9">
+                        <input id="title" type="text" name="name-session" class="form-control" placeholder="Titulo de la clase">
+                        <div class="invalid-feedback">Titulo no valido</div>
+                        <div class="valid-feedback">Titulo valido</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" onclick="formModalLesson(event)">Guardar</button>
+        </div> 
+      </div>
+    </div>
+</div>
 <div class="modal fade" id="sessions" tabindex="-1" role="dialog" aria-labelledby="sessionsTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
