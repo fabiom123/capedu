@@ -31,6 +31,7 @@ class SessionController extends Controller {
                 'course_id' => isset($input['course_id']) ? $input['course_id'] : null,
             ]);
             $session = Session::get_sessions_by_lesson($lesson->id);
+ 
             return response()->json([
                 'lesson' => $lesson,
                 'session' => $session,

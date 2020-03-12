@@ -292,6 +292,7 @@ const formModalLesson = async (event) => {
         })
         .then(function (response) {
             //handle success
+                console.log(response);
                 let logo = document.querySelector('.img-logo-curso').src
                 let template_session = `<li class="nestable-item nestable-item-handle" data-id="3">
                 <div class="nestable-handle"><i class="material-icons">swap_vert</i></div>
@@ -314,18 +315,17 @@ const formModalLesson = async (event) => {
                         </div>
                     </div>
                     <ul class="list-group list-group-fit">
-                    ${Object.keys(lesson).map(function (key) {
-                        return "<option value='" + key + "'>xxxx</option>"           
+                    ${Object.keys(response.data.session).map(function (key) {
+                        return `<li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
+                        <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                            <strong>${response.data.session[key].name}</strong>
+                            <div class="media-right">
+                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm" data-toggle="modal" data-target="#sessions"><i class="material-icons">edit</i></a>
+                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
+                            </div>
+                        </a>
+                    </li>`          
                     }).join("")}
-                        <li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
-                            <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
-                                <strong>Basics of Vue.js</strong>
-                                <div class="media-right">
-                                    <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm" data-toggle="modal" data-target="#sessions"><i class="material-icons">edit</i></a>
-                                    <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
-                                </div>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>`;
