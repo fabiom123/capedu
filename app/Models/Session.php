@@ -23,4 +23,12 @@ class Session extends Model {
         ->where('lesson_id', '=', $lesson_id)
         ->get();
     }
+    public function lessons() {
+        return $this->belongsTo('App\Models\Lesson','lesson_id','id');
+    }
+    static public function get_session_by_id($session_id){
+        return DB::table('sessions')
+        ->where('id', '=', $session_id)
+        ->first();
+    }
 }

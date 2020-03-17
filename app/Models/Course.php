@@ -30,4 +30,7 @@ class Course extends Model {
         ->where('courses.id', '=', intval($id))
         ->get(); 
     }
+    public function lessons() {
+        return $this->hasMany('App\Models\Lesson');
+    } 
 }

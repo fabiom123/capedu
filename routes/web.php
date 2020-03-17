@@ -40,8 +40,10 @@ Route::group([ 'middleware' => 'instructor' ], function () {
     Route::get('/cursos/{id}', 'Back\CursoController@find_course');
     Route::post('/cursos/update', 'Back\CursoController@update_curso');
     Route::post('/lesson/store', 'Back\SessionController@store_lesson'); 
-    Route::post('/session/store', 'Back\SessionController@store_session');  
-});
+    Route::post('/session/store', 'Back\SessionController@store_session');
+    Route::post('/session/update', 'Back\SessionController@update_session');
+    Route::post('/session/show', 'Back\SessionController@show_session');  
+}); 
 
 Route::group([ 'middleware' => 'admin' ], function () {
     Route::view('/admin', 'admin/home');

@@ -566,7 +566,6 @@ const editor = (elemt,placeholder) => {
     theme: 'snow' 
     });
     let content = quill.getContents().ops[0].insert 
-    console.log(quill.getContents())
     quill.clipboard.dangerouslyPasteHTML(content)
 }
 const nestable = (elemt) => {
@@ -636,6 +635,19 @@ const YouTubeGetID = (e,iframe) => {
     iframe.src = `https://www.youtube.com/embed/${ID}`
     e.target.value = `https://www.youtube.com/watch?v=${ID}`
     event.target.dataset.id = ID
+}
+const YouTubeModalGetID = (url,iframe) => {
+    let ID = '';
+    url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if(url[2] !== undefined) {
+      ID = url[2].split(/[^0-9a-z_\-]/i);
+      ID = ID[0];
+    }else {
+      ID = url;
+    }
+    //return ID;
+    var iframe = document.querySelector('.'+iframe)
+    iframe.src = `https://www.youtube.com/embed/${ID}`
 }
 const formCourse = async (event) => {
     event.preventDefault()
@@ -775,7 +787,8 @@ const formModalLesson = async (event) => {
         form.classList.add('was-validated');
     });
     /*insert*/
-    axios({
+    if(estado_form_modal){
+        axios({
         method: 'post',
         url: url,
         data: formModalData,
@@ -786,7 +799,7 @@ const formModalLesson = async (event) => {
         })
         .then(function (response) {
             //handle success
-                console.log(response);
+                //console.log(response);
                 let logo = document.querySelector('.img-logo-curso').src
                 let template_session = `<li class="nestable-item nestable-item-handle" data-id="3">
                 <div class="nestable-handle"><i class="material-icons">swap_vert</i></div>
@@ -808,7 +821,7 @@ const formModalLesson = async (event) => {
                             </div>
                         </div>
                     </div>
-                    <ul class="list-group list-group-fit">
+                    <ul class="list-group list-group-fit ${'list-sessions'+response.data.lesson.id}">
                     ${Object.keys(response.data.session).map(function (key) {
                         return `<li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
                         <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
@@ -823,27 +836,34 @@ const formModalLesson = async (event) => {
                     </ul>
                 </div>
             </li>`;
+            document.querySelector('input[name="lesson_id"]').value = response.data.lesson.id
             document.querySelector('.nestable-list').insertAdjacentHTML('beforeend',template_session)
+            $('#class').modal('hide')
             //console.log(response.data.session.name);
         })
         .catch(function (response) {
             //handle error
             console.log(response);
         });
+    }else{
+        document.querySelector('#form-lesson-modal').classList.add("was-validated")
+    }
     /*update*/
 }
 const formModalSession = async (event) => {
     event.preventDefault()
-    let url = '/session/store'
-    let instructor_id = document.querySelector('input[name="instructor_id"]').value
-    let id = document.querySelector('input[name="course_id"]').value
-    let name = document.querySelector('input[name="name-session"]').value
+    let url = ''
+    let operation = event.target.dataset.controller_action
+    let lesson_id = document.querySelector('input[name="lesson_id"]').value
+    let name = document.querySelector('input[name="name_session"]').value
     let editor_modal_course = document.querySelector('.editor-course-modal')
     let description = editor_modal_course.children[0].innerHTML
     let url_video = document.querySelector('input[name="url_video_session"]').value
-    /*validate*/
+    /*validate*/ 
+    let estado_form_modal = false
     let form_modal = document.getElementsByClassName('form-course-modal')
     const formModalData = new FormData()
+    formModalData.set("lesson_id", lesson_id) 
     Array.prototype.filter.call(form_modal, function(form) {
         estado_form_modal = form.checkValidity()
         if( estado_form_modal === true){
@@ -854,7 +874,15 @@ const formModalSession = async (event) => {
         form.classList.add('was-validated');
     });
     /*insert*/
-    axios({
+    if (operation === 'insert') {
+        url = '/session/store'
+    }else{
+        url = '/session/update'
+        let session_id = document.querySelector('input[name="session_id"]').value
+        formModalData.set("id", session_id)
+    }
+    if(estado_form_modal){
+        axios({
         method: 'post',
         url: url,
         data: formModalData,
@@ -863,25 +891,84 @@ const formModalSession = async (event) => {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes.content.textContent,
             'Content-Type': 'multipart/form-data'}
         })
-        .then(function (response) {
+        .then(function (response) { 
             //handle success
-            console.log(response);
-        })
-        .catch(function (response) {
+            let template_session = `<li class="list-group-item" id="session-item-${response.data.session.id}" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
+                <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                    <strong>${response.data.session.name}</strong>
+                    <div class="media-right">
+                        <a href="#" class="btn btn-white btn-sm session-modal-edit" data-toggle="modal" data-target="#sessions" data-session_id="${response.data.session.id}" data-lesson_id="${response.data.session.lesson_id}" data-action="update"><i class="material-icons">edit</i></a>
+                        <a href="#" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
+                    </div>
+                </a> 
+            </li>`
+            let selector = `.list-sessions${response.data.session.lesson_id}`
+            let session = `session-item-${response.data.session.id}`
+            if (response.data.session.action == 'insert') {
+                document.querySelector(selector).insertAdjacentHTML('beforeend',template_session)
+            } else {
+                document.getElementById(session).remove()
+                document.querySelector(selector).insertAdjacentHTML('beforeend',template_session)
+            }
+            $('#sessions').modal('hide');
+        }).catch(function (response) {
             //handle error
             console.log(response);
         });
+    }else{
+        document.querySelector('#form-session-modal').classList.add("was-validated")
+    }
+
     /*update*/
 }
-
+const sessionById = async (id) => {
+    axios({
+        method: 'post',
+        url: '/session/show',
+        data: {session_id : id},
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes.content.textContent,
+            }
+        })
+        .then(function (response) { 
+            //handle success
+            document.querySelector('input[name="name_session"]').value = response.data.session.name
+            let editor_modal_course = document.querySelector('.editor-course-modal')
+            editor_modal_course.innerHTML = response.data.session.description
+            editor('editor-course-modal','Ingresa descripcion del curso')
+            document.querySelector('input[name="url_video_session"]').value = response.data.session.url_video
+            YouTubeModalGetID(response.data.session.url_video,'embed-modal-course') 
+        }).catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+}
 /*document.getElementById('question').addEventListener('click', ()=>{
     editor('editor')
 });*/
 /* bootstrap modal juqery */
-$('#sessions').on('show.bs.modal', function (e) {
-    $('.modal-description').html('<div class="editor-course-modal"></div>')
-    editor('editor-course-modal','Ingresa descripcion para la clase');
+$('#class').on('show.bs.modal', function (event) {
+    document.querySelector('#form-lesson-modal').classList.remove("was-validated")
 }); 
+$('#sessions').on('show.bs.modal', function (event) {
+    let action = $(event.relatedTarget).data('action')
+    console.log(action);
+    document.querySelector('#form-session-modal').classList.remove("was-validated")  
+    let lesson_id = $(event.relatedTarget).data('lesson_id') === undefined ? document.querySelector('input[name="lesson_id"]').value : $(event.relatedTarget).data('lesson_id')
+    document.querySelector('input[name="lesson_id"]').value = lesson_id
+    $('.modal-description').html('<div class="editor-course-modal"></div>')
+    if (action === 'update') {
+        //find current session data
+        let sesion_id = $(event.relatedTarget).data('session_id') 
+        document.querySelector('input[name="session_id"]').value = sesion_id
+        sessionById(sesion_id) 
+        document.getElementsByClassName('action-session')[0].setAttribute('data-controller_action', 'update')
+    }else{ 
+        editor('editor-course-modal','Ingresa descripcion para la clase');
+        document.getElementsByClassName('action-session')[0].setAttribute('data-controller_action', 'insert')
+    }
+});                                                                          
 $('#sessions').on('hide.bs.modal', function (e) {
     $( ".editor-course-modal" ).remove();
 });

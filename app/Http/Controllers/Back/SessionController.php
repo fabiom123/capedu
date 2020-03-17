@@ -19,6 +19,16 @@ class SessionController extends Controller {
             'sessions'    =>    $sessions,
         ]);  
     }
+    public function show_session(Request $request){
+        try {
+            $session = Session::get_session_by_id($request->session_id);
+            if ($request->ajax()) {
+                return response()->json(['status' => true, 'session' => $session]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'session' => $session]);
+        }
+    }
     public function store_lesson(Request $request){
         $input = $request->all();
         $now = Carbon::now(); 
@@ -55,12 +65,36 @@ class SessionController extends Controller {
                 'name' => $input['name'],
                 'description' =>  isset($input['description']) ? $input['description'] : null,
                 'url_video' => isset($input['url_video']) ? $input['url_video'] : null,
-                'instructor_id' => isset($input['instructor_id']) ? $input['instructor_id'] : null,
-                'course_id' => isset($input['course_id']) ? $input['course_id'] : null,
+                'lesson_id' => isset($input['lesson_id']) ? $input['lesson_id'] : null,
             ]);
             return response()->json([
+                'action' => 'insert',
                 'session' => $session,
                 'msj' => 'Registro de session exitosa',
+                'status' => true 
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function update_session(Request $request){
+        $input = $request->all();
+        $now = Carbon::now(); 
+        //dd($input);exit;
+        try {
+            $session = Session::find($input['id']);
+            $session->name = isset($input['name']) ? $input['name'] : null;
+            $session->description =  isset($input['description']) ? $input['description'] : null;
+            $session->url_video = isset($input['url_video']) ? $input['url_video'] : null;
+            $session->lesson_id = isset($input['lesson_id']) ? $input['lesson_id'] : null;
+            $session->save();
+            return response()->json([
+                'action' => 'update',
+                'session' => $session,
+                'msj' => 'Actulizacion de la session exitosa',
                 'status' => true 
             ]);
         } catch (\Exception $e) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Session;
 use Carbon\Carbon;
 use Auth;
 use Storage;
@@ -67,14 +68,19 @@ class CursoController extends Controller {
    
     public function find_course($id){
        $instructor_id = Auth::guard('instructor')->user()->id;
-       $course = Course::find($id);
        $distinct_courses = Course::get_distinct_course();
-       $lessons = Course::get_lessons($id);
-       //var_dump($lessons);exit;
+
+       $course = Course::find($id); 
+       $lessons = Course::get_lessons($id); 
+       ///Event::with('city')->with('company')->get();
+       //$sessions = Lesson::with('sessions')->get();
+       $sessions = Session::get_sessions();
+       //dd($sessions);
        return view ('instructor.courses.form', [
         'instructor_id'    =>    $instructor_id,
         'course'           =>    $course,  
-        'lessons'          =>   $lessons, 
+        'lessons'          =>    $lessons, 
+        'sessions'         =>    $sessions, 
         'distinct_courses' =>    $distinct_courses,
        ]);
     }

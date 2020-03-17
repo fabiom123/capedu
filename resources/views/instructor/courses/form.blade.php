@@ -92,11 +92,11 @@
                 <h4 class="card-title">Clases</h4>
             </div>
             <div class="card-body">
-                <p><a href="fixed-instructor-lesson-add.html" class="btn btn-primary" data-toggle="modal" data-target="#class">Agregar Clase<i class="material-icons">add</i></a></p>
+                <p><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#class">Agregar Clase<i class="material-icons">add</i></a></p>
                 <div class="nestable" id="nestable-handles-primary">
                     <ul class="nestable-list" id="session-list">
                         @foreach ($lessons as $lesson)
-                            <li class="nestable-item nestable-item-handle" data-id="3">
+                        <li class="nestable-item nestable-item-handle" data-id="3">
                             <div class="nestable-handle"><i class="material-icons">swap_vert</i></div>
                             <div class="nestable-content">
                                 <div class="d-flex align-items-center card-header" style="padding: 0;">
@@ -110,22 +110,26 @@
                                     <div class="media-right">
                                         <a href="#" class="btn btn-white btn-sm" data-toggle="dropdown"><i class="material-icons">menu</i></a>
                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#sessions"><i class="material-icons">add_circle</i>Agregar sesion</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#sessions" data-lesson_id="{!!$lesson->id!!}" data-action="insert"><i class="material-icons">add_circle</i>Agregar sesion</a>
                                             <a class="dropdown-item" href="#"><i class="material-icons">edit</i>Editar clase</a>
                                             <a class="dropdown-item" href="#"><i class="material-icons">remove_circle</i>Eliminar clase</a>
                                         </div>
                                     </div>
                                 </div>
-                                <ul class="list-group list-group-fit">
-                                    <li class="list-group-item" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
-                                        <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
-                                            <strong>Basics of Vue.js</strong>
-                                            <div class="media-right">
-                                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm" data-toggle="modal" data-target="#sessions"><i class="material-icons">edit</i></a>
-                                                <a href="fixed-instructor-lesson-add.html" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
-                                            </div>
-                                        </a>
-                                    </li>
+                                <ul class="list-group list-group-fit {{ 'list-sessions'.$lesson->id }}">
+                                    @foreach ($sessions as $i => $session)
+                                        @if ($session->lesson_id == $lesson->id) 
+                                        <li class="list-group-item" id="session-item-{!! $session->id !!}" style="display: flex;justify-content: space-between;padding: 0.75rem 0rem;">
+                                            <a href="fixed-student-view-course.html" class="text-body text-decoration-0 d-flex align-items-center">
+                                                <strong>{!! $session->name !!}</strong>
+                                                <div class="media-right"> 
+                                                    <a href="#" class="btn btn-white btn-sm session-modal-edit" data-toggle="modal" data-target="#sessions" data-session_id="{!! $session->id !!}" data-lesson_id="{!!$session->lesson_id!!}" data-action="update"><i class="material-icons">edit</i></a>
+                                                    <a href="#" class="btn btn-white btn-sm"><i class="material-icons">delete</i></a>
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        @endif 
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>    
@@ -233,11 +237,11 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="#" class="form-course-modal">
+            <form action="#" class="form-course-modal" id="form-lesson-modal">
                 <div class="form-group row">
                     <label for="title" class="col-md-3 col-form-label form-label">Titulo</label>
                     <div class="col-md-9">
-                        <input id="title" type="text" name="name-session" class="form-control" placeholder="Titulo de la clase">
+                        <input id="title" type="text" name="name-session" class="form-control" placeholder="Titulo de la clase" required>
                         <div class="invalid-feedback">Titulo no valido</div>
                         <div class="valid-feedback">Titulo valido</div>
                     </div>
@@ -261,11 +265,13 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="#" class="form-course-modal">
+            <form action="#" class="form-course-modal" id="form-session-modal">
+                <input type="hidden" name="lesson_id" value="">
+                <input type="hidden" name="session_id" value=""> 
                 <div class="form-group row">
                     <label for="title" class="col-md-3 col-form-label form-label">Titulo</label>
                     <div class="col-md-9">
-                        <input id="title" type="text" name="name-session" class="form-control" placeholder="Titulo de la clase">
+                        <input id="title" type="text" name="name_session" class="form-control" placeholder="Titulo de la clase" required> 
                         <div class="invalid-feedback">Titulo no valido</div>
                         <div class="valid-feedback">Titulo valido</div>
                     </div>
@@ -285,7 +291,7 @@
                                     <div class="valid-feedback">URL valida</div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12"> 
                                 <div class="form-group">
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item embed-modal-course" src="https://www.youtube.com/embed/yZevGkXmgq8" allowfullscreen=""></iframe>
@@ -304,7 +310,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" onclick="formModal(event)">Guardar</button>
+          <button type="button" class="btn btn-primary action-session" onclick="formModalSession(event)">Guardar</button>
         </div> 
       </div>
     </div>
